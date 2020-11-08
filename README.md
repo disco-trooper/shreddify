@@ -1,25 +1,20 @@
-# shreddify
+<h1 align="center">shreddify</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-0.3.0-blue.svg?cacheSeconds=2592000" />
+</p>
 
-## Project setup
-```
+> A simple toolkit for everyone that want to get shredded
+
+### ✨ [Demo](https://disco-trooper.github.io/shreddify/)
+
+## Install
+
+```sh
 npm install
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Author
 
-### Compiles and minifies for production
-```
-npm run build
-```
+👤 **Denis Kobliha**
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-# shreddify
+- Github: [@disco-trooper](https://github.com/disco-trooper)
