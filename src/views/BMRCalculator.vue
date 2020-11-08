@@ -7,7 +7,8 @@
           position="is-bottom"
           :size="getTooltipSize"
           multilined
-          type="is-info"
+          dashed
+          type="is-primary"
         >
           <span>BMR</span>
         </b-tooltip>
@@ -171,13 +172,16 @@
           </p>
         </b-field>
       </section>
-      <div class="mt-4 is-size-5 has-text-centered">
+
+      <!-- Result -->
+      <div class="mt-4 is-size-5 has-text-centered has-text-weight-bold">
         Your
         <b-tooltip
           label="Basal metabolic rate (BMR) is defined as the rate at which your body uses energy when you are resting in order to keep vital functions going such as breathing."
-          position="is-bottom"
-          size="is-large"
+          position="is-top"
+          :size="getTooltipSize"
           multilined
+          dashed
           type="is-info"
         >
           <span>BMR</span>
@@ -265,7 +269,6 @@ export default {
 .box {
   max-width: 500px;
   margin: 0 auto;
-  margin-bottom: 100px;
 }
 
 .age {
