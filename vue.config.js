@@ -1,5 +1,6 @@
 module.exports = {
   pwa: {
-    name: 'Shreddify'
-  }
-}
+    name: 'Shreddify',
+  },
+  publicPath: process.env.NODE_ENV === 'production' ? '/shreddify/' : '/',
+};
