@@ -186,7 +186,7 @@
         >
           <span>BMR</span>
         </b-tooltip>
-        is {{ bodyfatSelected ? getBFBMR : getBMR }}
+        is {{ bodyfatSelected ? getBFBMR : getBMR }} kcal
       </div>
     </div>
   </div>

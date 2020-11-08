@@ -212,7 +212,7 @@
             >TDEE</span
           >
         </b-tooltip>
-        is {{ bodyfatSelected ? getBFTDEE : getTDEE }}
+        is {{ bodyfatSelected ? getBFTDEE : getTDEE }} kcal
       </div>
 
       <!-- TDEE Modal -->
