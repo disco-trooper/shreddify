@@ -5,7 +5,7 @@
         <b-tooltip
           label="Basal metabolic rate (BMR) is defined as the rate at which your body uses energy when you are resting in order to keep vital functions going such as breathing."
           position="is-bottom"
-          size="is-large"
+          :size="getTooltipSize"
           multilined
           type="is-info"
         >
@@ -210,6 +210,9 @@ export default {
   }),
   methods: {},
   computed: {
+    getTooltipSize() {
+      return screen.width >= 540 ? 'is-large' : 'is-small';
+    },
     getBFBMR() {
       return this.units === 'metric'
         ? Math.round(
