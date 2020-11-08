@@ -1,7 +1,18 @@
 <template>
   <div>
-    <div class="box" id="box">
-      <h1 class="has-text-centered title">BMR Calculator</h1>
+    <div class="box">
+      <h1 class="has-text-centered title">
+        <b-tooltip
+          label="Basal metabolic rate (BMR) is defined as the rate at which your body uses energy when you are resting in order to keep vital functions going such as breathing."
+          position="is-bottom"
+          size="is-large"
+          multilined
+          type="is-info"
+        >
+          <span>BMR</span>
+        </b-tooltip>
+        Calculator
+      </h1>
       <section>
         <!-- Units selected? -->
         <b-field label="Which units?">
@@ -161,11 +172,17 @@
         </b-field>
       </section>
       <div class="mt-4 is-size-5 has-text-centered">
-        {{
-          !bodyfatSelected
-            ? `Your BMR is ${getBMR} kcal`
-            : `Your BMR is ${getBFBMR} kcal`
-        }}
+        Your
+        <b-tooltip
+          label="Basal metabolic rate (BMR) is defined as the rate at which your body uses energy when you are resting in order to keep vital functions going such as breathing."
+          position="is-bottom"
+          size="is-large"
+          multilined
+          type="is-info"
+        >
+          <span>BMR</span>
+        </b-tooltip>
+        is {{ bodyfatSelected ? getBFBMR : getBMR }}
       </div>
     </div>
   </div>
@@ -242,9 +259,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#box {
+.box {
   max-width: 500px;
   margin: 0 auto;
+  margin-bottom: 100px;
 }
 
 .age {
