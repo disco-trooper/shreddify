@@ -1,8 +1,8 @@
-<template>
+<template class="test">
   <div id="app">
     <Navbar />
-    <h3 class="ml-5 title is-4">The toolkit to get shredded</h3>
-    <router-view></router-view>
+    <h3 class="ml-5 mt-3 title is-4">The toolkit to get shredded</h3>
+    <router-view class="router"></router-view>
   </div>
 </template>
 
@@ -14,4 +14,8 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+html {
+  background-color: #dfdfdf !important;
+}
+</style>

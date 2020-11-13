@@ -182,7 +182,7 @@
           :size="getTooltipSize"
           multilined
           dashed
-          type="is-info"
+          type="is-primary"
         >
           <span>BMR</span>
         </b-tooltip>
@@ -196,7 +196,7 @@
 export default {
   data: () => ({
     bodyfatSelected: false,
-    bodyfat: 1,
+    bodyfat: 12,
     units: 'metric',
     sex: 'male',
     age: 22,
@@ -269,6 +269,7 @@ export default {
 .box {
   max-width: 500px;
   margin: 0 auto;
+  margin-bottom: 25px;
 }
 
 .age {

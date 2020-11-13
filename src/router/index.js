@@ -12,6 +12,10 @@ const routes = [
     path: '/tdee-calculator',
     component: () => import('../views/TDEECalculator.vue'),
   },
+  {
+    path: '/wilks-calculator',
+    component: () => import('../views/WilksCalculator.vue'),
+  },
 ];
 
 const router = new VueRouter({
