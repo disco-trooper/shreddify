@@ -29,6 +29,14 @@
           class="has-text-weight-bold is-size-6"
           href=""
           tag="router-link"
+          :to="{ path: '/1RM-calculator' }"
+        >
+          1RM Calculator
+        </b-navbar-item>
+        <b-navbar-item
+          class="has-text-weight-bold is-size-6"
+          href=""
+          tag="router-link"
           :to="{ path: '/wilks-calculator' }"
         >
           Wilks Calculator

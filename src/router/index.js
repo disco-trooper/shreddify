@@ -16,6 +16,10 @@ const routes = [
     path: '/wilks-calculator',
     component: () => import('../views/WilksCalculator.vue'),
   },
+  {
+    path: '/1RM-calculator',
+    component: () => import('../views/1RMCalculator.vue'),
+  },
 ];
 
 const router = new VueRouter({
