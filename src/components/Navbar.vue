@@ -8,6 +8,7 @@
     <template slot="start">
       <b-navbar-dropdown label="Nutrition">
         <b-navbar-item
+          class="has-text-weight-bold is-size-6"
           href=""
           tag="router-link"
           :to="{ path: '/bmr-calculator' }"
@@ -15,11 +16,22 @@
           BMR Calculator
         </b-navbar-item>
         <b-navbar-item
+          class="has-text-weight-bold is-size-6"
           href=""
           tag="router-link"
           :to="{ path: '/tdee-calculator' }"
         >
           TDEE Calculator
+        </b-navbar-item>
+      </b-navbar-dropdown>
+      <b-navbar-dropdown label="Strength">
+        <b-navbar-item
+          class="has-text-weight-bold is-size-6"
+          href=""
+          tag="router-link"
+          :to="{ path: '/wilks-calculator' }"
+        >
+          Wilks Calculator
         </b-navbar-item>
       </b-navbar-dropdown>
     </template>
