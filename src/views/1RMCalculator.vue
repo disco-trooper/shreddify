@@ -155,9 +155,8 @@ export default {
       if (pos === 0) return 1;
       return (
         Math.round(
-          ((this.weight /
-            (1.0278 - 0.0278 * this.reps) /
-            ((this.weight / (1.0278 - 0.0278 * this.reps)) * (1 - pos * 0.05)) -
+          ((this.getLiftedWeight(0) /
+            (this.getLiftedWeight(0) * (1 - pos * 0.05)) -
             1) /
             0.033) *
             10
