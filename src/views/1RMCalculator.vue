@@ -68,8 +68,9 @@
           >
             <span>1RM</span>
           </b-tooltip>
-          is {{ get1RM }} {{ this.units === 'metric' ? 'kg' : 'lbs.' }}
+          is {{ get1RM() }} {{ this.units === 'metric' ? 'kg' : 'lbs.' }}
         </div>
+        <div>{{ RMPercentages }}</div>
       </section>
     </div>
   </div>
@@ -77,20 +78,103 @@
 
 <script>
 export default {
-  data: () => ({
-    units: 'metric',
-    reps: 5,
-    weight: 100,
-  }),
-  methods: {},
-  computed: {
+  data() {
+    return {
+      units: 'metric',
+      reps: 5,
+      weight: 100,
+      RM: '?',
+      RMPercentages: [
+        {
+          RMPercentage: 100,
+          liftedWeight: undefined,
+          reps: undefined,
+        },
+        {
+          RMPercentage: 95,
+          liftedWeight: undefined,
+          reps: undefined,
+        },
+        {
+          RMPercentage: 90,
+          liftedWeight: undefined,
+          reps: undefined,
+        },
+        {
+          RMPercentage: 85,
+          liftedWeight: undefined,
+          reps: undefined,
+        },
+        {
+          RMPercentage: 80,
+          liftedWeight: undefined,
+          reps: undefined,
+        },
+        {
+          RMPercentage: 75,
+          liftedWeight: undefined,
+          reps: undefined,
+        },
+        {
+          RMPercentage: 70,
+          liftedWeight: undefined,
+          reps: undefined,
+        },
+        {
+          RMPercentage: 65,
+          liftedWeight: undefined,
+          reps: undefined,
+        },
+        {
+          RMPercentage: 60,
+          liftedWeight: undefined,
+          reps: undefined,
+        },
+        {
+          RMPercentage: 55,
+          liftedWeight: undefined,
+          reps: undefined,
+        },
+        {
+          RMPercentage: 50,
+          liftedWeight: undefined,
+          reps: undefined,
+        },
+      ],
+    };
+  },
+  methods: {
     get1RM() {
-      return this.units === 'metric'
-        ? Math.round(this.weight * (1 + 0.033 * this.reps) * 100) / 100
-        : Math.round(this.weightToKg * (1 + 0.033 * this.reps) * 100) / 100;
+      for (let i = 0; i < 11; i++) {
+        this.RMPercentages[i].liftedWeight = this.getLiftedWeight(i);
+        this.RMPercentages[i].reps = this.getReps(i);
+      }
+      return this.getLiftedWeight(0);
     },
-    weightToKg() {
-      return this.weight / 2.20462262;
+    getReps(pos) {
+      if (pos === 0) return 1;
+      return (
+        Math.round(
+          ((this.weight /
+            (1.0278 - 0.0278 * this.reps) /
+            ((this.weight / (1.0278 - 0.0278 * this.reps)) * (1 - pos * 0.05)) -
+            1) /
+            0.033) *
+            10
+        ) / 10
+      );
+    },
+    getLiftedWeight(pos) {
+      return (
+        Math.round(
+          (this.weight / (1.0278 - 0.0278 * this.reps)) * (1 - pos * 0.05) * 100
+        ) / 100
+      );
+    },
+  },
+  computed: {
+    getTooltipSize() {
+      return screen.width >= 540 ? 'is-large' : 'is-small';
     },
   },
 };
