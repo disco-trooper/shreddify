@@ -194,7 +194,7 @@
             extended
           ></b-input>
           <p class="control">
-            <span class="button is-static">lbs.</span>
+            <span class="button is-static">lb</span>
           </p>
         </b-field>
       </section>

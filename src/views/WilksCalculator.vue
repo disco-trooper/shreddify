@@ -46,7 +46,7 @@
           ></b-input>
           <p class="control">
             <span class="button is-static">{{
-              units === 'metric' ? 'kg' : 'lbs'
+              units === 'metric' ? 'kg' : 'lb'
             }}</span>
           </p>
         </b-field>
@@ -65,7 +65,7 @@
           ></b-input>
           <p class="control">
             <span class="button is-static">{{
-              units === 'metric' ? 'kg' : 'lbs'
+              units === 'metric' ? 'kg' : 'lb'
             }}</span>
           </p>
         </b-field>
@@ -81,7 +81,7 @@
           ></b-input>
           <p class="control">
             <span class="button is-static">{{
-              units === 'metric' ? 'kg' : 'lbs'
+              units === 'metric' ? 'kg' : 'lb'
             }}</span>
           </p>
         </b-field>
@@ -97,7 +97,7 @@
           ></b-input>
           <p class="control">
             <span class="button is-static">{{
-              units === 'metric' ? 'kg' : 'lbs'
+              units === 'metric' ? 'kg' : 'lb'
             }}</span>
           </p>
         </b-field>
