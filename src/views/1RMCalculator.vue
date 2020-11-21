@@ -79,6 +79,7 @@
         :data="get1RMPercentagesTable(11)"
         :columns="percentagesCollumn"
         :striped="true"
+        :mobile-cards="false"
       ></b-table>
     </div>
     <div class="box">
@@ -87,6 +88,7 @@
         :striped="true"
         :data="getRepsTable(30)"
         :columns="repsCollumn"
+        :mobile-cards="false"
       ></b-table>
     </div>
   </div>
@@ -240,7 +242,7 @@ export default {
 
 <style lang="scss" scoped>
 .box {
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
   margin-bottom: 25px;
 }
