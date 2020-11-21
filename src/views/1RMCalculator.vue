@@ -36,7 +36,7 @@
           ></b-input>
           <p class="control">
             <span class="button is-static">{{
-              units === 'metric' ? 'kg' : 'lbs'
+              units === 'metric' ? 'kg' : 'lb'
             }}</span>
           </p>
         </b-field>
@@ -68,7 +68,8 @@
           >
             <span>1RM</span>
           </b-tooltip>
-          is {{ get1RM() }} {{ this.units === 'metric' ? 'kg' : 'lbs.' }}
+          is {{ round(get1RM(), 1) }}
+          {{ this.units === 'metric' ? 'kg' : 'lb' }}
         </div>
         <div>{{ RMPercentages }}</div>
       </section>
@@ -141,40 +142,59 @@ export default {
           reps: undefined,
         },
       ],
+      RepTable: [
+        {
+          reps: 1,
+          weight: undefined,
+          percentage: undefined,
+        },
+      ],
     };
   },
+  watch: {
+    weight() {
+      this.get1RMPercentages(11);
+    },
+  },
   methods: {
-    get1RM() {
-      for (let i = 0; i < 11; i++) {
-        this.RMPercentages[i].liftedWeight = this.getLiftedWeight(i);
-        this.RMPercentages[i].reps = this.getReps(i);
+    get1RMPercentages(numberOfPercentages) {
+      for (let i = 0; i < numberOfPercentages; i++) {
+        this.RMPercentages[i].liftedWeight = this.round(
+          this.getLiftedWeight(i),
+          1
+        );
+        this.RMPercentages[i].reps = this.round(this.getReps(i), 1);
       }
-      return this.getLiftedWeight(0);
+    },
+    get1RM() {
+      return this.weight / (1.0278 - 0.0278 * this.reps);
     },
     getReps(pos) {
       if (pos === 0) return 1;
       return (
-        Math.round(
-          ((this.getLiftedWeight(0) /
-            (this.getLiftedWeight(0) * (1 - pos * 0.05)) -
-            1) /
-            0.033) *
-            10
-        ) / 10
+        (this.getLiftedWeight(0) /
+          (this.getLiftedWeight(0) * (1 - pos * 0.05)) -
+          1) /
+        0.033
       );
     },
-    getLiftedWeight(pos) {
+    getLiftedWeight(fiveStepsFrom100) {
       return (
-        Math.round(
-          (this.weight / (1.0278 - 0.0278 * this.reps)) * (1 - pos * 0.05) * 100
-        ) / 100
+        (this.weight / (1.0278 - 0.0278 * this.reps)) *
+        (1 - fiveStepsFrom100 * 0.05)
       );
+    },
+    round(number, places) {
+      return Math.round(number * 10 ** places) / 10 ** places;
     },
   },
   computed: {
     getTooltipSize() {
       return screen.width >= 540 ? 'is-large' : 'is-small';
     },
+  },
+  created() {
+    this.get1RMPercentages(11);
   },
 };
 </script>
