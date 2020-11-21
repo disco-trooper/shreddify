@@ -1,5 +1,5 @@
 <template>
-  <b-navbar :shadow="true" type="is-primary">
+  <b-navbar :shadow="false" type="is-primary">
     <template slot="brand">
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
         <h1 class="is-size-4">Shreddify</h1>
