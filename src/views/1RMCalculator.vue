@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="box">
+    <div class="box pb-5">
       <h1 class="has-text-centered title">
         <b-tooltip
           label="1RM is the maximum amount of weight that you can possibly lift for one repetition"
@@ -68,11 +68,26 @@
           >
             <span>1RM</span>
           </b-tooltip>
-          is {{ round(get1RM(), 1) }}
+          is {{ round(get1RM('brzycki'), 1) }}
           {{ this.units === 'metric' ? 'kg' : 'lb' }}
         </div>
-        <div>{{ RMPercentages }}</div>
       </section>
+    </div>
+    <div class="box">
+      <h2 class="title is-size-3">Percentages of 1RM</h2>
+      <b-table
+        :data="get1RMPercentagesTable(11)"
+        :columns="percentagesCollumn"
+        :striped="true"
+      ></b-table>
+    </div>
+    <div class="box">
+      <h2 class="title is-size-3">Rep Maxes</h2>
+      <b-table
+        :striped="true"
+        :data="getRepsTable(30)"
+        :columns="repsCollumn"
+      ></b-table>
     </div>
   </div>
 </template>
@@ -81,93 +96,114 @@
 export default {
   data() {
     return {
+      percentagesCollumn: [
+        {
+          field: 'RMPercentage',
+          label: '% of 1RM',
+          numeric: true,
+          centered: true,
+        },
+        {
+          field: 'liftedWeight',
+          label: 'Lifted Weight',
+          numeric: true,
+          centered: true,
+        },
+        {
+          field: 'reps',
+          label: 'Reps',
+          numeric: true,
+          centered: true,
+        },
+      ],
+      repsCollumn: [
+        {
+          field: 'reps',
+          label: 'Reps',
+          numeric: true,
+          centered: true,
+        },
+        {
+          field: 'liftedWeight',
+          label: 'Lifted Weight',
+          numeric: true,
+          centered: true,
+        },
+        {
+          field: 'RMPercentage',
+          label: '% of 1RM',
+          numeric: true,
+          centered: true,
+        },
+      ],
       units: 'metric',
       reps: 5,
       weight: 100,
-      RM: '?',
-      RMPercentages: [
-        {
-          RMPercentage: 100,
-          liftedWeight: undefined,
-          reps: undefined,
-        },
-        {
-          RMPercentage: 95,
-          liftedWeight: undefined,
-          reps: undefined,
-        },
-        {
-          RMPercentage: 90,
-          liftedWeight: undefined,
-          reps: undefined,
-        },
-        {
-          RMPercentage: 85,
-          liftedWeight: undefined,
-          reps: undefined,
-        },
-        {
-          RMPercentage: 80,
-          liftedWeight: undefined,
-          reps: undefined,
-        },
-        {
-          RMPercentage: 75,
-          liftedWeight: undefined,
-          reps: undefined,
-        },
-        {
-          RMPercentage: 70,
-          liftedWeight: undefined,
-          reps: undefined,
-        },
-        {
-          RMPercentage: 65,
-          liftedWeight: undefined,
-          reps: undefined,
-        },
-        {
-          RMPercentage: 60,
-          liftedWeight: undefined,
-          reps: undefined,
-        },
-        {
-          RMPercentage: 55,
-          liftedWeight: undefined,
-          reps: undefined,
-        },
-        {
-          RMPercentage: 50,
-          liftedWeight: undefined,
-          reps: undefined,
-        },
-      ],
-      RepTable: [
-        {
-          reps: 1,
-          weight: undefined,
-          percentage: undefined,
-        },
-      ],
     };
   },
   watch: {
     weight() {
-      this.get1RMPercentages(11);
+      this.get1RMPercentagesTable(11);
+      this.getRepsTable(30);
     },
   },
   methods: {
-    get1RMPercentages(numberOfPercentages) {
+    get1RMPercentagesTable(numberOfPercentages) {
+      let RMPercentagesTable = [];
       for (let i = 0; i < numberOfPercentages; i++) {
-        this.RMPercentages[i].liftedWeight = this.round(
-          this.getLiftedWeight(i),
-          1
-        );
-        this.RMPercentages[i].reps = this.round(this.getReps(i), 1);
+        let RMPercentage = {};
+        RMPercentage.RMPercentage = 100 - i * 5 + '%';
+        if (i < 11) {
+          RMPercentage.liftedWeight =
+            this.round(this.getLiftedWeight(i, 'brzycki'), 1) +
+            `${this.units === 'metric' ? ' kg' : ' lb'}`;
+        }
+        if (i >= 11) {
+          RMPercentage.liftedWeight =
+            this.round(this.getLiftedWeight(i, 'other'), 1) +
+            `${this.units === 'metric' ? ' kg' : ' lb'}`;
+        }
+
+        RMPercentage.reps = this.round(this.getReps(i), 1);
+        RMPercentagesTable.push(RMPercentage);
       }
+      return RMPercentagesTable;
     },
-    get1RM() {
-      return this.weight / (1.0278 - 0.0278 * this.reps);
+    getRepsTable(numberOfReps) {
+      let repsTable = [];
+      for (let reps = 1; reps < numberOfReps + 1; reps++) {
+        let repDetails = {};
+        repDetails.reps = reps;
+        repDetails.liftedWeight =
+          this.round(
+            reps < 11
+              ? this.get1RM('brzycki') * (1.0278 - 0.0278 * reps)
+              : this.get1RM('brzycki') / (1 + 0.0333 * reps),
+            1
+          ) + `${this.units === 'metric' ? ' kg' : ' lb'}`;
+        repDetails.RMPercentage =
+          reps < 11
+            ? this.round(
+                ((this.get1RM('brzycki') * (1.0278 - 0.0278 * reps)) /
+                  this.get1RM('brzycki')) *
+                  100,
+                1
+              ) + '%'
+            : this.round(
+                (this.get1RM('brzycki') /
+                  (1 + 0.0333 * reps) /
+                  this.get1RM('brzycki')) *
+                  100,
+                1
+              ) + '%';
+        repsTable.push(repDetails);
+      }
+      return repsTable;
+    },
+    get1RM(formula) {
+      if (formula === 'brzycki')
+        return this.weight / (1.0278 - 0.0278 * this.reps);
+      else return this.weight * (1 + 0.033 * this.reps);
     },
     getReps(pos) {
       if (pos === 0) return 1;
@@ -178,11 +214,17 @@ export default {
         0.033
       );
     },
-    getLiftedWeight(fiveStepsFrom100) {
-      return (
-        (this.weight / (1.0278 - 0.0278 * this.reps)) *
-        (1 - fiveStepsFrom100 * 0.05)
-      );
+    getLiftedWeight(fiveStepsFrom100, formula) {
+      if (formula === 'brzycki') {
+        return (
+          (this.weight / (1.0278 - 0.0278 * this.reps)) *
+          (1 - fiveStepsFrom100 * 0.05)
+        );
+      } else {
+        return (
+          this.weight * (1 + 0.033 * this.reps) * (1 - fiveStepsFrom100 * 0.05)
+        );
+      }
     },
     round(number, places) {
       return Math.round(number * 10 ** places) / 10 ** places;
@@ -192,9 +234,6 @@ export default {
     getTooltipSize() {
       return screen.width >= 540 ? 'is-large' : 'is-small';
     },
-  },
-  created() {
-    this.get1RMPercentages(11);
   },
 };
 </script>
