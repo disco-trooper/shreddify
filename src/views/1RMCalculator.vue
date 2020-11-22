@@ -151,63 +151,56 @@ export default {
   },
   methods: {
     get1RMPercentagesTable(numberOfPercentages) {
-      let RMPercentagesTable = [];
-      for (let i = 0; i < numberOfPercentages; i++) {
-        let RMPercentage = {};
-        RMPercentage.RMPercentage = 100 - i * 5 + '%';
-        if (i < 11) {
-          RMPercentage.liftedWeight =
-            this.round(this.getLiftedWeight(i, 'brzycki'), 1) +
-            `${this.units === 'metric' ? ' kg' : ' lb'}`;
+      const RMPercentagesTable = [...Array(numberOfPercentages).keys()].map(
+        (percentage) => {
+          return {
+            RMPercentage: 100 - percentage * 5 + '%',
+            liftedWeight:
+              percentage + 1 < 11
+                ? this.round(this.getLiftedWeight(percentage, 'brzycki'), 1) +
+                  `${this.units === 'metric' ? ' kg' : ' lb'}`
+                : this.round(this.getLiftedWeight(percentage + 1, 'other'), 1) +
+                  `${this.units === 'metric' ? ' kg' : ' lb'}`,
+            reps: this.round(this.getReps(percentage), 1),
+          };
         }
-        if (i >= 11) {
-          RMPercentage.liftedWeight =
-            this.round(this.getLiftedWeight(i, 'other'), 1) +
-            `${this.units === 'metric' ? ' kg' : ' lb'}`;
-        }
-
-        RMPercentage.reps = this.round(this.getReps(i), 1);
-        RMPercentagesTable.push(RMPercentage);
-      }
+      );
       return RMPercentagesTable;
     },
     getRepsTable(numberOfReps) {
-      let repsTable = [];
-      for (let reps = 1; reps < numberOfReps + 1; reps++) {
-        let repDetails = {};
-        repDetails.reps = reps;
-        repDetails.liftedWeight =
-          this.round(
-            reps < 11
-              ? this.get1RM('brzycki') * (1.0278 - 0.0278 * reps)
-              : this.get1RM('brzycki') / (1 + 0.0333 * reps),
-            1
-          ) + `${this.units === 'metric' ? ' kg' : ' lb'}`;
-        repDetails.RMPercentage =
-          reps < 11
-            ? this.round(
-                ((this.get1RM('brzycki') * (1.0278 - 0.0278 * reps)) /
-                  this.get1RM('brzycki')) *
-                  100,
-                1
-              ) + '%'
-            : this.round(
-                (this.get1RM('brzycki') /
-                  (1 + 0.0333 * reps) /
-                  this.get1RM('brzycki')) *
-                  100,
-                1
-              ) + '%';
-        repsTable.push(repDetails);
-      }
+      const repsTable = [...Array(numberOfReps).keys()].map((rep) => {
+        return {
+          reps: rep + 1,
+          liftedWeight:
+            this.round(
+              rep < 11
+                ? this.get1RM('brzycki') / (36 / (37 - (rep + 1)))
+                : this.get1RM('brzycki') / (1 + (0.1 / 3) * (rep + 1)),
+              1
+            ) + `${this.units === 'metric' ? ' kg' : ' lb'}`,
+          RMPercentage:
+            this.round(
+              rep < 11
+                ? (this.get1RM('brzycki') /
+                    (36 / (37 - (rep + 1))) /
+                    this.get1RM('brzycki')) *
+                    100
+                : (this.get1RM('brzycki') /
+                    (1 + 0.0333 * (rep + 1)) /
+                    this.get1RM('brzycki')) *
+                    100,
+              1
+            ) + '%',
+        };
+      });
       return repsTable;
     },
     get1RM(formula) {
-      if (formula === 'brzycki')
-        return this.weight / (1.0278 - 0.0278 * this.reps);
-      else return this.weight * (1 + 0.033 * this.reps);
+      if (formula === 'brzycki') return this.weight * (36 / (37 - this.reps));
+      else return this.weight * (1 + (0.1 / 3) * this.reps);
     },
     getReps(pos) {
+      // Formula assumes reps > 1
       if (pos === 0) return 1;
       return (
         (this.getLiftedWeight(0) /
@@ -217,16 +210,7 @@ export default {
       );
     },
     getLiftedWeight(fiveStepsFrom100, formula) {
-      if (formula === 'brzycki') {
-        return (
-          (this.weight / (1.0278 - 0.0278 * this.reps)) *
-          (1 - fiveStepsFrom100 * 0.05)
-        );
-      } else {
-        return (
-          this.weight * (1 + 0.033 * this.reps) * (1 - fiveStepsFrom100 * 0.05)
-        );
-      }
+      return this.get1RM(formula) * (1 - fiveStepsFrom100 * 0.05);
     },
     round(number, places) {
       return Math.round(number * 10 ** places) / 10 ** places;
