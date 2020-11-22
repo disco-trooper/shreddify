@@ -8,8 +8,8 @@
     <blockquote>
       Shreddify is a growing project which wants to give you the tools you need
       to get shredded. You will find here tools that will give you information
-      related to both your training and nutrition. There are only calculators
-      now, but as the project grows, more tools will follow the way.
+      related to both your training and nutrition. There is only a handful of
+      calculators now, but as the project grows, more tools will follow the way.
     </blockquote>
   </div>
 </template>
