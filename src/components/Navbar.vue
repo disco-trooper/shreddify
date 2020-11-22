@@ -19,20 +19,20 @@
           class="has-text-weight-bold is-size-6"
           href=""
           tag="router-link"
-          :to="{ path: '/tdee-calculator' }"
+          :to="{ path: '/bmr-calculator' }"
         >
-          TDEE Calculator
+          BMR Calculator
         </b-navbar-item>
         <b-navbar-item
           class="has-text-weight-bold is-size-6"
           href=""
           tag="router-link"
-          :to="{ path: '/bmr-calculator' }"
+          :to="{ path: '/tdee-calculator' }"
         >
-          BMR Calculator
+          TDEE Calculator
         </b-navbar-item>
       </b-navbar-dropdown>
-      <b-navbar-dropdown label="Strength">
+      <b-navbar-dropdown label="Strength" :collapsible="true">
         <b-navbar-item
           class="has-text-weight-bold is-size-6"
           href=""
