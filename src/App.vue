@@ -1,8 +1,13 @@
 <template class="test">
   <div id="app">
     <Navbar />
-    <h3 class="ml-5 mt-3 title is-4">The toolkit to get shredded</h3>
-    <router-view class="router"></router-view>
+    <router-view class="router mt-5"></router-view>
+    <footer class="footer-basic has-text-centered">
+      <p>
+        <strong>Shreddify</strong> by
+        <a href="https://github.com/disco-trooper">Denis Kobliha</a>.
+      </p>
+    </footer>
   </div>
 </template>
 
@@ -17,5 +22,11 @@ export default {
 <style lang="scss">
 html {
   background-color: #dfdfdf !important;
+}
+.footer-basic {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px; /* Height of the footer */
 }
 </style>
