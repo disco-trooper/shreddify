@@ -20,6 +20,10 @@ const routes = [
     path: '/1RM-calculator',
     component: () => import('../views/1RMCalculator.vue'),
   },
+  {
+    path: '/bmi-calculator',
+    component: () => import('../views/BMICalculator.vue'),
+  },
 ];
 
 const router = new VueRouter({

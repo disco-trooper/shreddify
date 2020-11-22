@@ -11,9 +11,9 @@
           class="has-text-weight-bold is-size-6"
           href=""
           tag="router-link"
-          :to="{ path: '/bmr-calculator' }"
+          :to="{ path: '/bmi-calculator' }"
         >
-          BMR Calculator
+          BMI Calculator
         </b-navbar-item>
         <b-navbar-item
           class="has-text-weight-bold is-size-6"
@@ -22,6 +22,14 @@
           :to="{ path: '/tdee-calculator' }"
         >
           TDEE Calculator
+        </b-navbar-item>
+        <b-navbar-item
+          class="has-text-weight-bold is-size-6"
+          href=""
+          tag="router-link"
+          :to="{ path: '/bmr-calculator' }"
+        >
+          BMR Calculator
         </b-navbar-item>
       </b-navbar-dropdown>
       <b-navbar-dropdown label="Strength">
