@@ -6,7 +6,7 @@
       </b-navbar-item>
     </template>
     <template slot="start">
-      <b-navbar-dropdown label="Nutrition">
+      <b-navbar-dropdown label="Nutrition" :collapsible="true">
         <b-navbar-item
           class="has-text-weight-bold is-size-6"
           href=""
