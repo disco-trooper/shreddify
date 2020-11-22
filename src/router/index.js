@@ -5,6 +5,10 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: '/',
+    component: () => import('../views/Home.vue'),
+  },
+  {
     path: '/bmr-calculator',
     component: () => import('../views/BMRCalculator.vue'),
   },
