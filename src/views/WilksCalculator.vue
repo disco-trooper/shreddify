@@ -134,7 +134,6 @@ export default {
     },
     weight: 80,
   }),
-  methods: {},
   computed: {
     getTooltipSize() {
       return screen.width >= 540 ? 'is-large' : 'is-small';
