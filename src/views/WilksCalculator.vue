@@ -103,7 +103,7 @@
         </b-field>
 
         <!-- Result -->
-        <div class="mt-4 is-size-5 has-text-centered has-text-weight-bold">
+        <div class="mt-4 is-size-5 has-text-centered">
           Your
           <b-tooltip
             label="The Wilks Formula is a method by which the strength of a powerlifter is measured against the performances of other lifters of different bodyweights."
@@ -115,7 +115,7 @@
           >
             <span>Wilks</span>
           </b-tooltip>
-          is {{ getWilks }}
+          is <span class="has-text-weight-bold">{{ getWilks }}</span>
         </div>
       </section>
     </div>

@@ -108,7 +108,7 @@
       </section>
 
       <!-- Result -->
-      <div class="mt-4 is-size-5 has-text-centered has-text-weight-bold">
+      <div class="mt-4 is-size-5 has-text-centered">
         Your
         <b-tooltip
           label="Body mass index (BMI) is a value derived from the mass (weight) and height of a person. The BMI is a convenient rule of thumb used to broadly categorize a person as underweight, normal weight, overweight, or obese based on tissue mass and height."
@@ -120,7 +120,7 @@
         >
           <span>BMI</span>
         </b-tooltip>
-        is {{ getBMI }}
+        is <span class="has-text-weight-bold">{{ getBMI }}</span>
       </div>
     </div>
     <div class="box">

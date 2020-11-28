@@ -56,7 +56,7 @@
         </b-field>
 
         <!-- Result -->
-        <div class="mt-4 is-size-5 has-text-centered has-text-weight-bold">
+        <div class="mt-4 is-size-5 has-text-centered">
           Your
           <b-tooltip
             label="1RM is the maximum amount of weight that you can possibly lift for one repetition"
@@ -68,8 +68,11 @@
           >
             <span>1RM</span>
           </b-tooltip>
-          is {{ round(get1RM('brzycki'), 1) }}
-          {{ this.units === 'metric' ? 'kg' : 'lb' }}
+          is
+          <span class="has-text-weight-bold"
+            >{{ round(get1RM('brzycki'), 1) }}
+            {{ this.units === 'metric' ? 'kg' : 'lb' }}</span
+          >
         </div>
       </section>
     </div>

@@ -200,7 +200,7 @@
       </section>
 
       <!-- Result -->
-      <div class="mt-4 is-size-5 has-text-centered has-text-weight-bold">
+      <div class="mt-4 is-size-5 has-text-centered">
         Your
         <b-tooltip
           label="Click for more info!"
@@ -212,7 +212,10 @@
             >TDEE</span
           >
         </b-tooltip>
-        is {{ bodyfatSelected ? getBFTDEE : getTDEE }} kcal
+        is
+        <span class="has-text-weight-bold"
+          >{{ bodyfatSelected ? getBFTDEE : getTDEE }} kcal</span
+        >
       </div>
 
       <!-- TDEE Modal -->

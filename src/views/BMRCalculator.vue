@@ -174,7 +174,7 @@
       </section>
 
       <!-- Result -->
-      <div class="mt-4 is-size-5 has-text-centered has-text-weight-bold">
+      <div class="mt-4 is-size-5 has-text-centered">
         Your
         <b-tooltip
           label="Basal metabolic rate (BMR) is defined as the rate at which your body uses energy when you are resting in order to keep vital functions going such as breathing."
@@ -186,7 +186,10 @@
         >
           <span>BMR</span>
         </b-tooltip>
-        is {{ bodyfatSelected ? getBFBMR : getBMR }} kcal
+        is
+        <span class="has-text-weight-bold"
+          >{{ bodyfatSelected ? getBFBMR : getBMR }} kcal</span
+        >
       </div>
     </div>
   </div>
