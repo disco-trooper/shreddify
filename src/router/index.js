@@ -21,12 +21,16 @@ const routes = [
     component: () => import('../views/WilksCalculator.vue'),
   },
   {
-    path: '/1RM-calculator',
+    path: '/1rm-calculator',
     component: () => import('../views/1RMCalculator.vue'),
   },
   {
     path: '/bmi-calculator',
     component: () => import('../views/BMICalculator.vue'),
+  },
+  {
+    path: '/ffmi-calculator',
+    component: () => import('../views/FFMICalculator.vue'),
   },
 ];
 
