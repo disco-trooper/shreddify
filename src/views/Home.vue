@@ -2,7 +2,7 @@
   <div class="box content">
     <h1 class="title">Shreddify</h1>
     <h2 class="subtitle has-text-weight-normal">
-      The toolkit you need to get shredded
+      Get shredded
     </h2>
 
     <blockquote>

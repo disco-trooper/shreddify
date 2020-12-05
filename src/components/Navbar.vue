@@ -2,7 +2,7 @@
   <b-navbar :shadow="false" type="is-primary">
     <template slot="brand">
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
-        <h1 class="is-size-4">Shreddify</h1>
+        <img src="../assets/logo.png" alt="" />
       </b-navbar-item>
     </template>
     <template slot="start">
