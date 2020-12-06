@@ -134,17 +134,17 @@
             <br />
             Fat is set up as follows:
             <br />
-            25 % of your total calorie intake when gaining weight
+            25% of your total calorie intake when gaining weight
             <br />
-            20 % of your total calorie intake when maintaining weight
+            20% of your total calorie intake when maintaining weight
             <br />
-            17.5 % of your total calorie intake when in 20% and smaller deficit
+            17.5% of your total calorie intake when in 20% and smaller deficit
             <br />
-            15 % of your total calorie intake when in 25% and smaller deficit
+            15% of your total calorie intake when in 25% and smaller deficit
             <br />
-            12.5 % of your total calorie intake when in 30% and smaller deficit
+            12.5% of your total calorie intake when in 30% and smaller deficit
             <br />
-            10 % of your total calorie intake when in greater than 30% deficit
+            10% of your total calorie intake when in greater than 30% deficit
             <br />
             <br />
             Carbs make up what's left.
@@ -218,7 +218,7 @@ export default {
           value: -1,
         },
         {
-          name: 'Maintain or Gain Weight',
+          name: 'Maintain Weight',
           value: 0,
           selected: true,
         },
