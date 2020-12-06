@@ -40,6 +40,7 @@
           <b-input
             class="weight"
             type="number"
+            step="any"
             v-model="weight"
             min="1"
             extended
@@ -59,6 +60,7 @@
           <b-input
             class="weight"
             type="number"
+            step="any"
             v-model="lifted.benchpress"
             min="0"
             extended
@@ -75,6 +77,7 @@
           <b-input
             class="weight"
             type="number"
+            step="any"
             v-model="lifted.squat"
             min="0"
             extended
@@ -91,6 +94,7 @@
           <b-input
             class="weight"
             type="number"
+            step="any"
             v-model="lifted.deadlift"
             min="0"
             extended

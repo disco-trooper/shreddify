@@ -51,6 +51,7 @@
         <b-input
           class="weight"
           type="number"
+          step="any"
           v-model="weight.metric"
           min="1"
           extended
@@ -65,6 +66,7 @@
         <b-input
           class="weight"
           type="number"
+          step="any"
           v-model="weight.imperial"
           min="1"
           extended
