@@ -17,6 +17,10 @@ const routes = [
     component: () => import('../views/TDEECalculator.vue'),
   },
   {
+    path: '/macro-calculator',
+    component: () => import('../views/MacroCalculator.vue'),
+  },
+  {
     path: '/wilks-calculator',
     component: () => import('../views/WilksCalculator.vue'),
   },

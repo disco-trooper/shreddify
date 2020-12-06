@@ -59,6 +59,14 @@
         >
           TDEE Calculator
         </b-navbar-item>
+        <b-navbar-item
+          class="has-text-weight-bold is-size-6"
+          href=""
+          tag="router-link"
+          :to="{ path: '/macro-calculator' }"
+        >
+          Macro Calculator
+        </b-navbar-item>
       </b-navbar-dropdown>
     </template>
   </b-navbar>

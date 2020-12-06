@@ -99,6 +99,46 @@
           </b-select>
         </b-field>
 
+        <!-- Goal -->
+        <b-field label="Goal" name="activity-level">
+          <b-select v-model="goalMultiplier">
+            <option
+              v-for="(option, index) in goalOptions"
+              :value="option.value"
+              :key="index"
+            >
+              {{ option.name }}
+            </option>
+          </b-select>
+        </b-field>
+
+        <!-- Multiplier -->
+        <b-tooltip
+          v-if="goalMultiplier === 'custom'"
+          label="Enter % multiplier for surplus/deficit (eg. -10, -5, 5, 10)"
+          position="is-right"
+          dashed
+          type="is-primary"
+          class="mb-2"
+        >
+          <b-field label-for="activity-level"
+            ><span class="activitySpan">TDEE Multiplier</span></b-field
+          >
+        </b-tooltip>
+        <b-field v-if="goalMultiplier === 'custom'">
+          <b-input
+            class="multiplier"
+            type="number"
+            v-model="customMultiplier"
+            min="-100"
+            max="100"
+            extended
+          ></b-input>
+          <p class="control">
+            <span class="button is-static">%</span>
+          </p>
+        </b-field>
+
         <!-- Age -->
         <b-field
           label="Age"
@@ -213,9 +253,7 @@
           >
         </b-tooltip>
         is
-        <span class="has-text-weight-bold"
-          >{{ bodyfatSelected ? getBFTDEE : getTDEE }} kcal</span
-        >
+        <span class="has-text-weight-bold">{{ getResult() }} kcal</span>
       </div>
 
       <!-- TDEE Modal -->
@@ -298,6 +336,8 @@ export default {
     units: 'metric',
     sex: 'male',
     activityMultiplier: 1.2,
+    goalMultiplier: 1,
+    customMultiplier: 0,
     activityOptions: [
       {
         name: 'Sedentary',
@@ -325,6 +365,41 @@ export default {
         value: 1.9,
       },
     ],
+    goalOptions: [
+      {
+        name: 'Weight Loss (30% deficit) - Madness',
+        value: 0.7,
+      },
+      {
+        name: 'Weight Loss (25% deficit) - Aggressive',
+        value: 0.75,
+      },
+      {
+        name: 'Weight Loss (20% deficit) - Suggested',
+        value: 0.8,
+      },
+      {
+        name: 'Maintain Weight',
+        value: 1,
+        selected: true,
+      },
+      {
+        name: 'Custom',
+        value: 'custom',
+      },
+      {
+        name: 'Gain Weight (10% surplus) - Suggested',
+        value: 1.1,
+      },
+      {
+        name: 'Gain Weight (15% surplus) - Aggressive',
+        value: 1.15,
+      },
+      {
+        name: "Gain Weight (20% surplus) - You'll be fat",
+        value: 1.2,
+      },
+    ],
     age: 22,
     height: {
       metric: 183,
@@ -338,23 +413,36 @@ export default {
       imperial: 180,
     },
   }),
+  methods: {
+    round(number, places) {
+      return Math.round(number * 10 ** places) / 10 ** places;
+    },
+    getResult() {
+      if (this.bodyfatSelected) {
+        if (this.goalMultiplier === 'custom')
+          return this.round(this.getBFTDEE * this.getConvertedMultiplier, 0);
+        return this.round(this.getBFTDEE * this.goalMultiplier, 0);
+      }
+      if (this.goalMultiplier === 'custom')
+        return this.round(this.getTDEE * this.getConvertedMultiplier, 0);
+      return this.round(this.getTDEE * this.goalMultiplier, 0);
+    },
+  },
   computed: {
+    getConvertedMultiplier() {
+      return this.customMultiplier / 100 + 1;
+    },
     getTooltipSize() {
       return screen.width >= 540 ? 'is-large' : 'is-small';
     },
     getBFTDEE() {
       return this.units === 'metric'
-        ? Math.round(
-            (370 + 21.6 * ((this.weight.metric * (100 - this.bodyfat)) / 100)) *
-              this.activityMultiplier
-          )
-        : Math.round(
-            (370 +
-              21.6 *
-                (((this.weight.imperial / 2.205) * (100 - this.bodyfat)) /
-                  100)) *
-              this.activityMultiplier
-          );
+        ? (370 + 21.6 * ((this.weight.metric * (100 - this.bodyfat)) / 100)) *
+            this.activityMultiplier
+        : (370 +
+            21.6 *
+              (((this.weight.imperial / 2.205) * (100 - this.bodyfat)) / 100)) *
+            this.activityMultiplier;
     },
     getTDEE() {
       return this.units === 'metric'
@@ -406,6 +494,10 @@ export default {
 
 .age {
   width: 83px;
+}
+
+.multiplier {
+  width: 63px;
 }
 
 .weight {
