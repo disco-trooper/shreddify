@@ -32,6 +32,7 @@
             type="number"
             v-model="weight"
             min="1"
+            step="any"
             extended
           ></b-input>
           <p class="control">
@@ -46,6 +47,7 @@
           <b-input
             class="reps"
             type="number"
+            step="any"
             v-model="reps"
             min="1"
             extended
@@ -70,7 +72,7 @@
           </b-tooltip>
           is
           <span class="has-text-weight-bold"
-            >{{ round(get1RM('brzycki'), 1) }}
+            >{{ round(get1RM('brzycki'), 2) }}
             {{ this.units === 'metric' ? 'kg' : 'lb' }}</span
           >
         </div>
@@ -79,7 +81,7 @@
     <div class="box">
       <h2 class="title is-size-3">Percentages of 1RM</h2>
       <b-table
-        :data="get1RMPercentagesTable(11)"
+        :data="get1RMPercentagesTable(15)"
         :columns="percentagesCollumn"
         :striped="true"
         :mobile-cards="false"
