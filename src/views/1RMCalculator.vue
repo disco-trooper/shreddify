@@ -72,11 +72,7 @@
           </b-tooltip>
           is
           <span class="has-text-weight-bold"
-            >{{
-              reps > 10
-                ? round(get1RM('other'), 2)
-                : round(get1RM('brzycki'), 2)
-            }}
+            >{{ round(get1RM(), 2) }}
             {{ this.units === 'metric' ? 'kg' : 'lb' }}</span
           >
         </div>
@@ -165,11 +161,8 @@ export default {
           return {
             RMPercentage: 100 - percentage * 5 + '%',
             liftedWeight:
-              this.reps > 10
-                ? this.round(this.getLiftedWeight(percentage, 'other'), 1) +
-                  `${this.units === 'metric' ? ' kg' : ' lb'}`
-                : this.round(this.getLiftedWeight(percentage, 'brzycki'), 1) +
-                  `${this.units === 'metric' ? ' kg' : ' lb'}`,
+              this.round(this.getLiftedWeight(percentage), 1) +
+              `${this.units === 'metric' ? ' kg' : ' lb'}`,
 
             reps: this.round(this.getReps(percentage), 1),
           };
@@ -178,32 +171,22 @@ export default {
       return RMPercentagesTable;
     },
     getRepsTable(numberOfReps) {
-      const oneRM =
-        this.reps > 10 ? this.get1RM('other') : this.get1RM('brzycki');
+      const oneRM = this.get1RM();
       const repsTable = [...Array(numberOfReps).keys()].map((rep) => {
         return {
           reps: rep + 1,
           liftedWeight:
-            this.round(
-              rep < 10
-                ? oneRM / (36 / (37 - (rep + 1)))
-                : oneRM / (1 + (0.1 / 3) * (rep + 1)),
-              1
-            ) + `${this.units === 'metric' ? ' kg' : ' lb'}`,
+            this.round(oneRM / (36 / (37 - (rep + 1))), 1) +
+            `${this.units === 'metric' ? ' kg' : ' lb'}`,
           RMPercentage:
-            this.round(
-              rep < 11
-                ? (oneRM / (36 / (37 - (rep + 1))) / oneRM) * 100
-                : (oneRM / (1 + 0.0333 * (rep + 1)) / oneRM) * 100,
-              1
-            ) + '%',
+            this.round((oneRM / (36 / (37 - (rep + 1))) / oneRM) * 100, 1) +
+            '%',
         };
       });
       return repsTable;
     },
-    get1RM(formula) {
-      if (formula === 'brzycki') return this.weight * (36 / (37 - this.reps));
-      else return this.weight * (1 + (0.1 / 3) * this.reps);
+    get1RM() {
+      return this.weight * (36 / (37 - this.reps));
     },
     getReps(pos) {
       // Formula assumes reps > 1
@@ -212,11 +195,11 @@ export default {
         (this.getLiftedWeight(0) /
           (this.getLiftedWeight(0) * (1 - pos * 0.05)) -
           1) /
-        0.033
+        (1 / 30)
       );
     },
-    getLiftedWeight(fiveStepsFrom100, formula) {
-      return this.get1RM(formula) * (1 - fiveStepsFrom100 * 0.05);
+    getLiftedWeight(fiveStepsFrom100) {
+      return this.get1RM() * (1 - fiveStepsFrom100 * 0.05);
     },
     round(number, places) {
       return Math.round(number * 10 ** places) / 10 ** places;
