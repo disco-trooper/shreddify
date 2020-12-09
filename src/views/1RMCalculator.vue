@@ -72,7 +72,11 @@
           </b-tooltip>
           is
           <span class="has-text-weight-bold"
-            >{{ round(get1RM('brzycki'), 2) }}
+            >{{
+              reps > 10
+                ? round(get1RM('other'), 2)
+                : round(get1RM('brzycki'), 2)
+            }}
             {{ this.units === 'metric' ? 'kg' : 'lb' }}</span
           >
         </div>
@@ -144,13 +148,13 @@ export default {
         },
       ],
       units: 'metric',
-      reps: 5,
+      reps: 1,
       weight: 100,
     };
   },
   watch: {
     weight() {
-      this.get1RMPercentagesTable(11);
+      this.get1RMPercentagesTable(15);
       this.getRepsTable(30);
     },
   },
@@ -161,11 +165,12 @@ export default {
           return {
             RMPercentage: 100 - percentage * 5 + '%',
             liftedWeight:
-              percentage + 1 < 11
-                ? this.round(this.getLiftedWeight(percentage, 'brzycki'), 1) +
+              this.reps > 10
+                ? this.round(this.getLiftedWeight(percentage, 'other'), 1) +
                   `${this.units === 'metric' ? ' kg' : ' lb'}`
-                : this.round(this.getLiftedWeight(percentage + 1, 'other'), 1) +
+                : this.round(this.getLiftedWeight(percentage, 'brzycki'), 1) +
                   `${this.units === 'metric' ? ' kg' : ' lb'}`,
+
             reps: this.round(this.getReps(percentage), 1),
           };
         }
@@ -173,27 +178,23 @@ export default {
       return RMPercentagesTable;
     },
     getRepsTable(numberOfReps) {
+      const oneRM =
+        this.reps > 10 ? this.get1RM('other') : this.get1RM('brzycki');
       const repsTable = [...Array(numberOfReps).keys()].map((rep) => {
         return {
           reps: rep + 1,
           liftedWeight:
             this.round(
-              rep < 11
-                ? this.get1RM('brzycki') / (36 / (37 - (rep + 1)))
-                : this.get1RM('brzycki') / (1 + (0.1 / 3) * (rep + 1)),
+              rep < 10
+                ? oneRM / (36 / (37 - (rep + 1)))
+                : oneRM / (1 + (0.1 / 3) * (rep + 1)),
               1
             ) + `${this.units === 'metric' ? ' kg' : ' lb'}`,
           RMPercentage:
             this.round(
               rep < 11
-                ? (this.get1RM('brzycki') /
-                    (36 / (37 - (rep + 1))) /
-                    this.get1RM('brzycki')) *
-                    100
-                : (this.get1RM('brzycki') /
-                    (1 + 0.0333 * (rep + 1)) /
-                    this.get1RM('brzycki')) *
-                    100,
+                ? (oneRM / (36 / (37 - (rep + 1))) / oneRM) * 100
+                : (oneRM / (1 + 0.0333 * (rep + 1)) / oneRM) * 100,
               1
             ) + '%',
         };
