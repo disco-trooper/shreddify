@@ -3,7 +3,7 @@
   <img alt="Version" src="https://img.shields.io/badge/version-0.3.0-blue.svg?cacheSeconds=2592000" />
 </p>
 
-> A simple toolkit for everyone that want to get shredded
+> A simple website with a toolkit for everyone that want to get shredded
 
 ### ✨ [Demo](https://disco-trooper.github.io/shreddify/)
 
