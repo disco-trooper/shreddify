@@ -5,7 +5,7 @@
     <footer class="footer-basic has-text-centered">
       <p>
         <strong>Shreddify</strong> by
-        <a href="https://github.com/disco-trooper">Denis Kobliha</a>.
+        <a href="https://github.com/disco-trooper">disco_trooper</a>.
       </p>
     </footer>
   </div>
